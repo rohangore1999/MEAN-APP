@@ -1,0 +1,89 @@
+<mat-drawer-container class="example-container" autosize>
+    <!-- MAT DRAWER [ADD EMPLOYEE FORM] -->
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+        <div class="pb-1 pt-1 d-flex border-bottom">
+            <h1 class="mr-auto p-2">{{editModel?'Update':'Add'}} Employees</h1>
+            <!-- <button type="submit" class="btn btn-primary" (click)="drawer.toggle()" (click)="close()">Close</button> -->
+            <button mat-button>
+                <mat-icon svgIcon="close" aria-hidden="false" aria-label="Example thumbs up SVG icon" (click)="close()"
+                    (click)="drawer.toggle()"></mat-icon>
+            </button>
+        </div>
+
+        <div class="container d-flex">
+            <form #empform="ngForm" class="example-form pt-5" style="width: 100%;" (ngSubmit)="onSubmit(empform)">
+                <table class="example-full-width" style="width: 100%;" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field style="width: 50%;">
+                                <mat-label>Enter Name*</mat-label>
+                                <input matInput name="name" [(ngModel)]="name">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <mat-form-field style="width: 50%;">
+                                <mat-label>Enter Position*</mat-label>
+                                <input matInput name="position" [(ngModel)]="position">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <mat-form-field style="width: 50%;">
+                                <mat-label>Enter Department*</mat-label>
+                                <input matInput name="department" [(ngModel)]="department">
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                <button mat-stroked-button style="border-color: grey; color: grey; margin-right: 2%;"
+                    (click)="onAddEmployee()" (click)="drawer.toggle()">Submit</button>
+
+            </form>
+        </div>
+    </mat-drawer>
+
+    <div class="container py-3" *ngIf="showModel">
+        <div class="row">
+            <div class="col ml-auto text-right">
+                <button mat-stroked-button style="border-color: forestgreen; color: green;" (click)="drawer.toggle()"
+                    (click)="onAddEmployee()">Add
+                    Employee</button>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-4" *ngFor="let item of Employees">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="card-title">{{item.name}}</h3>
+                        <h4 class="card-subtitle mb-2 text-muted">{{item.position}}</h4>
+                        <mat-chip-list aria-label="Fish selection">
+                            <mat-chip color="warn" selected>{{item.department}}</mat-chip>
+                        </mat-chip-list>
+
+                        <hr>
+
+                        <button mat-stroked-button style="border-color: blue; color: blue; margin-right: 2%;"
+                            (click)="onEditEmployee(item,item._id)" (click)="drawer.toggle()">Edit</button>
+
+                        <button mat-stroked-button style="border-color: red; color: red;"
+                            (click)="deleteEmployee(item._id)">Delete</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+</mat-drawer-container>
