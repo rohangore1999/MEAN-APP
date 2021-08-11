@@ -1,1 +1,1 @@
-# MEAN-APP
+# THE MEAN-APP.
